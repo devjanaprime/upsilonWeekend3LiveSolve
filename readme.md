@@ -8,8 +8,9 @@ Basic Mode
 [x] serve html file (index.html)
 [x] src in js/jquery
 [x] basic interface set up
-[ ] get user input and console log for posterity
-[ ] send object to server
+[x] get user input and console log for posterity
+[x] send object to server
+[x] test post to server with test response
 [ ] parse object on server side and do some math
 [ ] return answer & display on the DOM
 [ ] clear button
