@@ -1,20 +1,18 @@
 $( document ).ready( function(){
+  var objectToSend = {
+    x: null,
+    y: null,
+    type: null
+  }; // end objectToSend
 
   $( '#clearButton').on( 'click', function(){
     console.log( 'in clearButton on click' );
-    $( '#outputP' ).html( '0' );
-    $( '#input0').val( '' );
-    $( '#input1').val( '' );
+    $( '#inputOutput').val( '' );
   }); // end clearButton on click
 
-  $( '.operatorButton' ).on( 'click', function(){
-    var type = $( this ).data( 'type' );
-    console.log( 'operatorButton on click:', type );
-    var objectToSend = {
-      x: $( '#input0' ).val(),
-      y: $( '#input1' ).val(),
-      type: type
-    }; // end objectToSend
+  $( '#equalsButton' ).on( 'click', function(){
+    console.log( 'in equalsButton on click');
+    objectToSend.y = $( '#inputOutput' ).val();
     console.log( 'sending:', objectToSend );
     //  ajax call to '/calculate' route
     // send objectToSend
@@ -25,9 +23,23 @@ $( document ).ready( function(){
       success: function( response ){
         console.log( 'back from server with:', response );
         // display the answer on the DOM
-        $( '#outputP' ).html( response.number );
+        $( '#inputOutput' ).val( response.number );
       }
     }); // end ajax
+  }); // equalsButton on click
 
+  $( '.numberButton' ).on( 'click', function(){
+    var value = $( this ).data( 'value' );
+    console.log( 'in numberButton on click:', value );
+    var currentNumber = $( '#inputOutput').val();
+    $( '#inputOutput').val( currentNumber + value );
+  }); // end numberButton on click
+
+  $( '.operatorButton' ).on( 'click', function(){
+    var type = $( this ).data( 'type' );
+    objectToSend.x = $( '#inputOutput' ).val();
+    objectToSend.type = type;
+    console.log( 'operatorButton on click:', objectToSend );
+    $( '#inputOutput' ).val( '' );
   }); // end operatorButton on click
 }); // end doc ready
